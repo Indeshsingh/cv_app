@@ -21,11 +21,16 @@ class _BottomnavigationbarPageState extends State<BottomnavigationbarPage> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         title: const Text(
-          'Resume',
+          'Resume Form',
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         leading: ClipOval(child: Image.asset('assets/logo.png')),
+        actions: const [
+          Icon(
+            Icons.share,
+          )
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blueGrey,

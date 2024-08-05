@@ -1,4 +1,6 @@
 import 'package:cv_app/bottomnavigationbar_page.dart';
+import 'package:cv_app/home_page.dart';
+import 'package:cv_app/sharedpreferences_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
-      home: const BottomnavigationbarPage(),
+      home: BottomnavigationbarPage(),
     );
   }
 }
