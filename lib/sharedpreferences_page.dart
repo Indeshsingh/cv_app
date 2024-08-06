@@ -9,18 +9,22 @@ class SharedpreferencesPage extends StatefulWidget {
 }
 
 class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
-  List<String> _formdata = [];
+  List<String> _formData = [];
 
   @override
   void initState() {
     super.initState();
-    _loadFormdata();
+    _loadFormData();
   }
 
-  void _loadFormdata() async {
+  void _loadFormData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Retrieve all submissions
+    List<String> storedData = prefs.getStringList('formData') ?? [];
+
     setState(() {
-      _formdata = prefs.getStringList('formData') ?? [];
+      _formData = storedData;
     });
   }
 
@@ -32,35 +36,19 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
         centerTitle: true,
         backgroundColor: Colors.blueGrey,
       ),
-      // body: Center(
-      //   child: Column(
-      //     children: [
-      //       Expanded(
-      //         child: ListView.builder(
-      //           itemCount: _formdata.length,
-      //           itemBuilder: (context, index) {
-      //             return ListTile(
-      //               title: Text(_formdata[index]),
-      //             );
-      //           },
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 8.0, top: 8.0, right: 35),
-                      child: SizedBox(
+      body: _formData.isEmpty
+          ? const Center(child: Text('No data available'))
+          : ListView.builder(
+              itemCount: _formData.length,
+              itemBuilder: (context, index) {
+                final currentData = _formData[index].split('||');
+
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
                         width: 150,
                         height: 150,
                         child: ClipOval(
@@ -72,185 +60,96 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 35),
-                        child: Text(' ${_formdata[0]},')),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 35),
-                        child: Text(' ${_formdata[1]}')),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, right: 92),
-                      child: Text(
+                      const SizedBox(height: 10),
+                      Text(
+                        ' ${currentData[0]}',
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        ' ${currentData[1]}',
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w300),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'SUMMARY',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const Divider(height: 5, thickness: 2),
+                      const SizedBox(height: 10),
+                      Text(' ${currentData[13]}'),
+                      const Text(
                         'CONTACT',
                         style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 1, left: 8.0, right: 35),
-                      child: Divider(
-                        height: 5,
-                        thickness: 2,
+                      const Divider(height: 5, thickness: 2),
+                      Text(' ${currentData[2]}'),
+                      Text(' ${currentData[3]}'),
+                      Text(' ${currentData[4]}'),
+                      const Text(
+                        'EDUCATION',
+                        style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 105),
-                        child: Text(
-                          ' ${_formdata[2]}',
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 30),
-                        child: Text(' ${_formdata[3]}')),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 75),
-                        child: Text(' ${_formdata[4]}')),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, top: 10, right: 120),
-                      child: Text(
+                      const Divider(height: 5, thickness: 2),
+                      const SizedBox(height: 10),
+                      Text(' ${currentData[14]}'),
+                      Text(' ${currentData[15]}'),
+                      const SizedBox(height: 10),
+                      const Text(
                         'SKILLS',
                         style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, right: 35),
-                      child: Divider(
-                        height: 5,
-                        thickness: 2,
+                      const Divider(height: 5, thickness: 2),
+                      Text(' ${currentData[5]}'),
+                      Text(' ${currentData[6]}'),
+                      Text(' ${currentData[7]}'),
+                      Text(' ${currentData[8]}'),
+                      Text(' ${currentData[9]}'),
+                      const Text(
+                        'EXPERIENCES',
+                        style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 125),
-                        child: Text(' ${_formdata[5]}')),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 90),
-                        child: Text(' ${_formdata[6]}')),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 140),
-                        child: Text(' ${_formdata[7]}')),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 35),
-                        child: Text(' ${_formdata[8]}')),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 35),
-                        child: Text(' ${_formdata[9]}')),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, top: 10, right: 77),
-                      child: Text(
+                      const Divider(height: 5, thickness: 2),
+                      const SizedBox(height: 5),
+                      const Text(
+                        'Job Title',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(' ${currentData[16]}'),
+                      Text(' ${currentData[17]}'),
+                      Text(' ${currentData[18]}'),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Date',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(' ${currentData[19]}'),
+                      Text(' ${currentData[20]}'),
+                      const SizedBox(height: 5),
+                      const Text(
+                        'HOBBIES',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const Divider(height: 5, thickness: 2),
+                      const SizedBox(height: 10),
+                      Text(' ${currentData[21]}'),
+                      const SizedBox(height: 5),
+                      const Text(
                         'LANGUAGE',
                         style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, right: 35),
-                      child: Divider(
-                        height: 5,
-                        thickness: 2,
-                      ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 145),
-                        child: Text(' ${_formdata[10]}')),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 142),
-                        child: Text(' ${_formdata[11]}')),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 138),
-                        child: Text(' ${_formdata[12]}')),
-                  ],
-                ),
-              ),
+                      const Divider(height: 5, thickness: 2),
+                      Text(' ${currentData[10]}'),
+                      Text(' ${currentData[11]}'),
+                      Text(' ${currentData[12]}'),
+                    ],
+                  ),
+                );
+              },
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'SUMMARY',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    const Divider(
-                      height: 5,
-                      thickness: 2,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(' ${_formdata[13]}'),
-                    const Text(
-                      'EDUCATION',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    const Divider(
-                      height: 5,
-                      thickness: 2,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(' ${_formdata[14]}'),
-                    Text(' ${_formdata[15]}'),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Text(
-                      'EXPERIENCES',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    const Divider(
-                      height: 5,
-                      thickness: 2,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Text(
-                      'Job Title',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(' ${_formdata[16]}'),
-                    Text(' ${_formdata[17]}'),
-                    Text(' ${_formdata[18]}'),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      'Date',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(' ${_formdata[19]}'),
-                    Text(' ${_formdata[20]}'),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Text(
-                      'HOBBIES',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    const Divider(
-                      height: 5,
-                      thickness: 2,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(' ${_formdata[21]}'),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

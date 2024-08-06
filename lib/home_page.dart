@@ -36,7 +36,8 @@ class _HomePageState extends State<HomePage> {
   void _saveFormData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    List<String> formData = [
+    // New data to be added
+    List<String> newData = [
       _controllerName.text,
       _controllerDesignation.text,
       _controllerPhoneNumber.text,
@@ -60,8 +61,44 @@ class _HomePageState extends State<HomePage> {
       _controllerDescription.text,
       _controllerHobbies.text,
     ];
-    await prefs.setStringList('formData', formData);
+
+    // Retrieve existing submissions
+    List<String> existingData = prefs.getStringList('formData') ?? [];
+
+    // Add new submission to the list
+    existingData.add(newData.join('||'));
+
+    // Save the updated list
+    await prefs.setStringList('formData', existingData);
   }
+
+  // @override
+  // void dispose() {
+  //   _controllerName.dispose();
+  //   _controllerDesignation.dispose();
+  //   _controllerPhoneNumber.dispose();
+  //   _controllerEmail.dispose();
+  //   _controllerAddress.dispose();
+  //   _controllerSkill1.dispose();
+  //   _controllerSkill2.dispose();
+  //   _controllerSkill3.dispose();
+  //   _controllerSkill4.dispose();
+  //   _controllerSkill4.dispose();
+  //   _controllerSkill5.dispose();
+  //   _controllerLanguage1.dispose();
+  //   _controllerLanguage2.dispose();
+  //   _controllerLanguage3.dispose();
+  //   _controllerSummary.dispose();
+  //   _controllerEducation1.dispose();
+  //   _controllerEducation2.dispose();
+  //   _controllerJobtitle.dispose();
+  //   _controllerEmployer.dispose();
+  //   _controllerLocation.dispose();
+  //   _controllerDate.dispose();
+  //   _controllerDescription.dispose();
+  //   _controllerHobbies.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +110,13 @@ class _HomePageState extends State<HomePage> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 8.0, top: 8.0, right: 35),
-                      child: SizedBox(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(top: 8.0, left: 8.0, right: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
                         width: 150,
                         height: 150,
                         child: ClipOval(
@@ -90,312 +128,225 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerName,
                         decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.person,
+                          ),
                           labelText: 'Name',
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerDesignation,
                         decoration:
                             const InputDecoration(labelText: 'Designation'),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, right: 92),
-                      child: Text(
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
                         'CONTACT',
                         style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 1, left: 8.0, right: 35),
-                      child: Divider(
+                      const Divider(
                         height: 5,
                         thickness: 2,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerPhoneNumber,
                         decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.phone),
                           labelText: 'Phone Number',
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerEmail,
-                        decoration: const InputDecoration(labelText: 'Email'),
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.email), labelText: 'Email'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerAddress,
                         decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.home),
                           labelText: 'Address',
                         ),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, top: 10, right: 120),
-                      child: Text(
+                      const Text(
                         'SKILLS',
                         style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, right: 35),
-                      child: Divider(
+                      const Divider(
                         height: 5,
                         thickness: 2,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerSkill1,
-                        decoration: const InputDecoration(),
+                        decoration: const InputDecoration(labelText: '1.'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerSkill2,
-                        decoration: const InputDecoration(),
+                        decoration: const InputDecoration(labelText: '2.'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerSkill3,
-                        decoration: const InputDecoration(),
+                        decoration: const InputDecoration(labelText: '3.'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerSkill4,
-                        decoration: const InputDecoration(),
+                        decoration: const InputDecoration(labelText: '4.'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerSkill5,
-                        decoration: const InputDecoration(),
+                        decoration: const InputDecoration(labelText: '5.'),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, top: 10, right: 77),
-                      child: Text(
+                      const Text(
                         'LANGUAGE',
                         style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, right: 35),
-                      child: Divider(
+                      const Divider(
                         height: 5,
                         thickness: 2,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerLanguage1,
-                        decoration: const InputDecoration(),
+                        decoration: const InputDecoration(labelText: '1.'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerLanguage2,
-                        decoration: const InputDecoration(),
+                        decoration: const InputDecoration(labelText: '2.'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerLanguage3,
-                        decoration: const InputDecoration(),
+                        decoration: const InputDecoration(labelText: '3.'),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(right: 95, top: 20.0),
-                      child: Text(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 18.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
                         'SUMMARY',
                         style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(),
-                      child: Divider(
+                      const Divider(
                         height: 5,
                         thickness: 2,
                       ),
-                    ),
-                    TextField(
-                      controller: _controllerSummary,
-                      maxLines: 6,
-                      decoration: const InputDecoration(),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 80, top: 5.0),
-                      child: Text(
+                      TextField(
+                        controller: _controllerSummary,
+                        maxLines: 6,
+                        decoration: const InputDecoration(),
+                      ),
+                      const Text(
                         'EDUCATION',
                         style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    const Divider(
-                      height: 5,
-                      thickness: 2,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      const Divider(
+                        height: 5,
+                        thickness: 2,
+                      ),
+                      TextField(
                         controller: _controllerEducation1,
                         maxLines: 2,
-                        decoration:
-                            const InputDecoration(labelText: 'High School +2'),
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.school),
+                            labelText: 'High School +2'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerEducation2,
                         maxLines: 2,
-                        decoration:
-                            const InputDecoration(labelText: 'Bachelor Degree'),
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.school),
+                            labelText: 'Bachelor Degree'),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 60, top: 10),
-                      child: Text(
+                      const Text(
                         'EXPERIENCES',
                         style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    const Divider(
-                      height: 5,
-                      thickness: 2,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 120, top: 8.0),
-                      child: Text(
+                      const Divider(
+                        height: 5,
+                        thickness: 2,
+                      ),
+                      const Text(
                         'Job Title',
                         style: TextStyle(fontSize: 18),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerJobtitle,
                         decoration: const InputDecoration(),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerEmployer,
                         decoration: const InputDecoration(
                             labelText: 'Employer/Organization'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerLocation,
-                        decoration:
-                            const InputDecoration(labelText: 'Location'),
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.map), labelText: 'Location'),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 8.0, right: 155),
-                      child: Text(
+                      const Text(
                         'Date',
                         style: TextStyle(fontSize: 18),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerDate,
-                        decoration:
-                            const InputDecoration(labelText: 'Month/Year'),
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.date_range),
+                            labelText: 'Month/Year'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      TextField(
                         controller: _controllerDescription,
                         decoration:
                             const InputDecoration(labelText: 'Description'),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 108, top: 10),
-                      child: Text(
+                      const Text(
                         'HOBBIES',
                         style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                    const Divider(
-                      height: 5,
-                      thickness: 2,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 35),
-                      child: TextField(
+                      const Divider(
+                        height: 5,
+                        thickness: 2,
+                      ),
+                      TextField(
                         controller: _controllerHobbies,
                         maxLines: 3,
                         decoration: const InputDecoration(),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 18,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                      const SizedBox(
+                        height: 18,
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _saveFormData();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SharedpreferencesPage()));
-                        });
-                      },
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(color: Colors.white),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _saveFormData();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SharedpreferencesPage()));
+                          });
+                        },
+                        child: const Text(
+                          'Submit',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
