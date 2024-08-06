@@ -10,6 +10,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _text = TextEditingController();
+
+  bool _validate = false;
+
   final _controllerName = TextEditingController();
   final _controllerDesignation = TextEditingController();
   final _controllerPhoneNumber = TextEditingController();
@@ -130,11 +134,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                       TextField(
                         controller: _controllerName,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(
                             Icons.person,
                           ),
                           labelText: 'Name',
+                          errorText: _validate ? "value can't be empty" : null,
                         ),
                       ),
                       TextField(
@@ -154,6 +159,7 @@ class _HomePageState extends State<HomePage> {
                         thickness: 2,
                       ),
                       TextField(
+                        keyboardType: TextInputType.number,
                         controller: _controllerPhoneNumber,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.phone),
@@ -331,8 +337,12 @@ class _HomePageState extends State<HomePage> {
                           backgroundColor: Colors.black,
                         ),
                         onPressed: () {
+                          _text.text.isEmpty
+                              ? _validate = false
+                              : _validate = false;
                           setState(() {
                             _saveFormData();
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

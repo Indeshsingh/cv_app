@@ -79,6 +79,9 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                       const Divider(height: 5, thickness: 2),
                       const SizedBox(height: 10),
                       Text(' ${currentData[13]}'),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const Text(
                         'CONTACT',
                         style: TextStyle(fontSize: 20),
@@ -87,6 +90,9 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                       Text(' ${currentData[2]}'),
                       Text(' ${currentData[3]}'),
                       Text(' ${currentData[4]}'),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const Text(
                         'EDUCATION',
                         style: TextStyle(fontSize: 20),
@@ -106,6 +112,9 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                       Text(' ${currentData[7]}'),
                       Text(' ${currentData[8]}'),
                       Text(' ${currentData[9]}'),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const Text(
                         'EXPERIENCES',
                         style: TextStyle(fontSize: 20),
@@ -116,7 +125,7 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                         'Job Title',
                         style: TextStyle(fontSize: 18),
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 10),
                       Text(' ${currentData[16]}'),
                       Text(' ${currentData[17]}'),
                       Text(' ${currentData[18]}'),
@@ -128,7 +137,7 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                       const SizedBox(height: 5),
                       Text(' ${currentData[19]}'),
                       Text(' ${currentData[20]}'),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 10),
                       const Text(
                         'HOBBIES',
                         style: TextStyle(fontSize: 20),
@@ -136,7 +145,7 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                       const Divider(height: 5, thickness: 2),
                       const SizedBox(height: 10),
                       Text(' ${currentData[21]}'),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 10),
                       const Text(
                         'LANGUAGE',
                         style: TextStyle(fontSize: 20),
