@@ -107,11 +107,31 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                         style: TextStyle(fontSize: 18),
                       ),
                       const Divider(height: 5, thickness: 2),
-                      Text(' ${currentData[5]}'),
-                      Text(' ${currentData[6]}'),
-                      Text(' ${currentData[7]}'),
-                      Text(' ${currentData[8]}'),
-                      Text(' ${currentData[9]}'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(' ${currentData[5]}'),
+                                Text(' ${currentData[6]}'),
+                                Text(' ${currentData[7]}'),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(' ${currentData[8]}'),
+                                Text(' ${currentData[9]}'),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
