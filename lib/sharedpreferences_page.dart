@@ -1,31 +1,24 @@
+import 'dart:convert'; // For Base64 encoding and decoding
+import 'dart:io'; // For File handling
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedpreferencesPage extends StatefulWidget {
-  const SharedpreferencesPage({super.key});
+  final String data; // Data passed from DocumentPage
+
+  const SharedpreferencesPage({super.key, required this.data});
 
   @override
   State<SharedpreferencesPage> createState() => _SharedpreferencesPageState();
 }
 
 class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
-  List<String> _formData = [];
+  late List<String> _formData;
 
   @override
   void initState() {
     super.initState();
-    _loadFormData();
-  }
-
-  void _loadFormData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // Retrieve all submissions
-    List<String> storedData = prefs.getStringList('formData') ?? [];
-
-    setState(() {
-      _formData = storedData;
-    });
+    // Split the data passed from DocumentPage
+    _formData = widget.data.split('||');
   }
 
   @override
@@ -36,149 +29,193 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
         centerTitle: true,
         backgroundColor: Colors.blueGrey,
       ),
-      body: _formData.isEmpty
-          ? const Center(child: Text('No data available'))
-          : ListView.builder(
-              itemCount: _formData.length,
-              itemBuilder: (context, index) {
-                final currentData = _formData[index].split('||');
-
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Display the profile photo
+                    SizedBox(
+                      width: 110,
+                      height: 110,
+                      child: ClipOval(
+                        child: _getImageWidget(_formData[11]),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Contact',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      ' ${_formData[5]}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    Text(
+                      ' ${_formData[6]}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    Text(
+                      ' ${_formData[7]}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height: 5.0),
+                    Text(
+                      'DOB: ${_formData[3]}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    Text(
+                      'Age: ${_formData[4]}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0, left: 8.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 150,
-                        height: 150,
-                        child: ClipOval(
-                          child: Image.asset(
-                            'assets/logo.png',
-                            height: 150,
-                            width: 150,
-                            fit: BoxFit.cover,
-                          ),
+                      Text(
+                        ' ${_formData[0]} ${_formData[1]}',
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        ' ${_formData[2]}',
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 15),
+                      const Text(
+                        'Summary',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Container(
+                        color: const Color.fromARGB(255, 229, 222, 219),
+                        height: 100,
+                        width: 240,
+                        child: Text(
+                          ' ${_formData[12]}',
+                          style: const TextStyle(fontSize: 14),
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        ' ${currentData[0]}',
-                        style: const TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        ' ${currentData[1]}',
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w300),
-                      ),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'SUMMARY',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      const Divider(height: 5, thickness: 2),
-                      const SizedBox(height: 10),
-                      Text(' ${currentData[13]}'),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        'CONTACT',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      const Divider(height: 5, thickness: 2),
-                      Text(' ${currentData[2]}'),
-                      Text(' ${currentData[3]}'),
-                      Text(' ${currentData[4]}'),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        'EDUCATION',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      const Divider(height: 5, thickness: 2),
-                      const SizedBox(height: 10),
-                      Text(' ${currentData[14]}'),
-                      Text(' ${currentData[15]}'),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'SKILLS',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      const Divider(height: 5, thickness: 2),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(' ${currentData[5]}'),
-                                Text(' ${currentData[6]}'),
-                                Text(' ${currentData[7]}'),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(' ${currentData[8]}'),
-                                Text(' ${currentData[9]}'),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        'EXPERIENCES',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      const Divider(height: 5, thickness: 2),
-                      const SizedBox(height: 5),
-                      const Text(
-                        'Job Title',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(' ${currentData[16]}'),
-                      Text(' ${currentData[17]}'),
-                      Text(' ${currentData[18]}'),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Date',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(' ${currentData[19]}'),
-                      Text(' ${currentData[20]}'),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'HOBBIES',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      const Divider(height: 5, thickness: 2),
-                      const SizedBox(height: 10),
-                      Text(' ${currentData[21]}'),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'LANGUAGE',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      const Divider(height: 5, thickness: 2),
-                      Text(' ${currentData[10]}'),
-                      Text(' ${currentData[11]}'),
-                      Text(' ${currentData[12]}'),
                     ],
                   ),
-                );
-              },
+                ),
+              ],
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Experience',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        ' ${_formData[10]}',
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                      const Text(
+                        'Education',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        ' ${_formData[8]}',
+                        style: const TextStyle(fontSize: 14),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 50.0),
+                    child: Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 150.0),
+                          child: Text(
+                            'Skills',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          height: 100,
+                          width: 200,
+                          color: const Color.fromARGB(255, 229, 222, 219),
+                          child: Text(
+                            ' ${_formData[9]}',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        const Padding(
+                          padding: EdgeInsets.only(right: 123.0),
+                          child: Text(
+                            'Hobbies',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          height: 100,
+                          width: 200,
+                          color: const Color.fromARGB(255, 229, 222, 219),
+                          child: Text(
+                            ' ${_formData[13]}',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
+  }
+
+  Widget _getImageWidget(String imageData) {
+    if (imageData.startsWith('/')) {
+      // It's a file path
+      return Image.file(
+        File(imageData),
+        height: 100,
+        width: 100,
+        fit: BoxFit.cover,
+      );
+    } else {
+      try {
+        // Try to decode the image data as Base64
+        return Image.memory(
+          base64Decode(imageData),
+          height: 100,
+          width: 100,
+          fit: BoxFit.cover,
+        );
+      } catch (e) {
+        // If decoding fails, return a placeholder
+        return const Icon(
+          Icons.person,
+          size: 100,
+        );
+      }
+    }
   }
 }
