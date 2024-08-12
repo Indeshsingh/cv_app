@@ -24,11 +24,6 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Resume'),
-        centerTitle: true,
-        backgroundColor: Colors.blueGrey,
-      ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8.0, top: 8.0),
         child: Column(

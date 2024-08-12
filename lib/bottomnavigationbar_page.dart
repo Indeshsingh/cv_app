@@ -1,7 +1,8 @@
 import 'package:cv_app/document_page.dart';
-import 'package:cv_app/home_page.dart';
 import 'package:cv_app/home_page1.dart';
 import 'package:flutter/material.dart';
+
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class BottomnavigationbarPage extends StatefulWidget {
   const BottomnavigationbarPage({super.key});
@@ -12,12 +13,33 @@ class BottomnavigationbarPage extends StatefulWidget {
 }
 
 class _BottomnavigationbarPageState extends State<BottomnavigationbarPage> {
-  int _selectedIndex = 0;
+  final PersistentTabController _controller =
+      PersistentTabController(initialIndex: 0);
 
-  final List<Widget> _pages = [
-    const HomePage1(),
-    const DocumentPage(),
-  ];
+  List<Widget> _buildScreens() {
+    return [
+      const HomePage1(),
+      const DocumentPage(),
+    ];
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.home),
+        title: "Home",
+        activeColorPrimary: Colors.black,
+        inactiveColorPrimary: Colors.white,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.edit_document),
+        title: "Document",
+        activeColorPrimary: Colors.black,
+        inactiveColorPrimary: Colors.white,
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,29 +52,27 @@ class _BottomnavigationbarPageState extends State<BottomnavigationbarPage> {
         centerTitle: true,
         leading: ClipOval(child: Image.asset('assets/logo.png')),
         actions: const [
-          Icon(
-            Icons.share,
-          )
+          Icon(Icons.share),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      body: PersistentTabView(
+        context,
+        controller: _controller,
+        screens: _buildScreens(),
+        items: _navBarsItems(),
+        //confineInSafeArea: true,
         backgroundColor: Colors.blueGrey,
-        currentIndex: _selectedIndex,
-        onTap: (value) {
-          setState(() {
-            _selectedIndex = value;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.contact_emergency), label: 'Document')
-        ],
-        type: BottomNavigationBarType.fixed,
-      ),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
+        handleAndroidBackButtonPress: true,
+        resizeToAvoidBottomInset:
+            true, // This needs to be true if you want to move up the screen when keyboard appears.
+        stateManagement: true, // Default is true.
+
+        decoration: NavBarDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          colorBehindNavBar: Colors.white,
+        ),
+
+        navBarStyle: NavBarStyle.style3, // Choose your preferred style
       ),
     );
   }

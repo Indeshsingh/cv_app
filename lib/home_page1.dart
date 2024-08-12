@@ -1,9 +1,10 @@
 import 'package:cv_app/document_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:intl/intl.dart'; // For formatting the date
+import 'package:intl/intl.dart';
 
 class HomePage1 extends StatefulWidget {
   const HomePage1({super.key});
@@ -174,6 +175,21 @@ class _HomePage1State extends State<HomePage1> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                const Text(
+                  'CV Form',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 135, right: 135),
+                  child: Divider(
+                    height: 0,
+                    thickness: 2,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 TextFormField(
                   controller: _controllerName,
                   decoration: const InputDecoration(
@@ -374,7 +390,7 @@ class _HomePage1State extends State<HomePage1> {
                     'Submit',
                     style: TextStyle(color: Colors.white),
                   ),
-                )
+                ),
               ],
             ),
           ),
