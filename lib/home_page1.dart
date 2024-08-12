@@ -30,9 +30,6 @@ class _HomePage1State extends State<HomePage1> {
   final _controllerSummary = TextEditingController();
   final _controllerHobbies = TextEditingController();
 
-  // final _controllerSkills = TextEditingController();
-  // final _controllerExperiences = TextEditingController();
-  // Lists to store skills and experiences
   final List<String> _skills = [];
   final List<String> _experiences = [];
 

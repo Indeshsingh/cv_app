@@ -65,14 +65,14 @@ class _BottomnavigationbarPageState extends State<BottomnavigationbarPage> {
         handleAndroidBackButtonPress: true,
         resizeToAvoidBottomInset:
             true, // This needs to be true if you want to move up the screen when keyboard appears.
-        stateManagement: true, // Default is true.
+        stateManagement: true,
 
         decoration: NavBarDecoration(
           borderRadius: BorderRadius.circular(10.0),
           colorBehindNavBar: Colors.white,
         ),
 
-        navBarStyle: NavBarStyle.style3, // Choose your preferred style
+        navBarStyle: NavBarStyle.style3,
       ),
     );
   }

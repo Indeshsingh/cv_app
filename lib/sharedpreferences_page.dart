@@ -33,7 +33,6 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Display the profile photo
                     SizedBox(
                       width: 110,
                       height: 110,
@@ -92,15 +91,17 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      Container(
-                        color: const Color.fromARGB(255, 229, 222, 219),
-                        height: 100,
-                        width: 240,
-                        child: Text(
-                          ' ${_formData[12]}',
-                          style: const TextStyle(fontSize: 14),
+                      if (_formData[12].isNotEmpty) ...[
+                        Container(
+                          color: const Color.fromARGB(255, 229, 222, 219),
+                          height: 100,
+                          width: 240,
+                          child: Text(
+                            ' ${_formData[12]}',
+                            style: const TextStyle(fontSize: 14),
+                          ),
                         ),
-                      ),
+                      ],
                     ],
                   ),
                 ),
@@ -153,21 +154,23 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Container(
-                          height: 100,
-                          width: 200,
-                          color: const Color.fromARGB(255, 229, 222, 219),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: _formData[9]
-                                .split(' ')
-                                .map((item) => Text(
-                                      '- $item',
-                                      style: const TextStyle(fontSize: 14),
-                                    ))
-                                .toList(),
+                        if (_formData[9].isNotEmpty) ...[
+                          Container(
+                            height: 100,
+                            width: 200,
+                            color: const Color.fromARGB(255, 229, 222, 219),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: _formData[9]
+                                  .split(' ')
+                                  .map((item) => Text(
+                                        '- $item',
+                                        style: const TextStyle(fontSize: 14),
+                                      ))
+                                  .toList(),
+                            ),
                           ),
-                        ),
+                        ],
                         const SizedBox(height: 20),
                         const Padding(
                           padding: EdgeInsets.only(right: 123.0),
@@ -177,15 +180,17 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Container(
-                          height: 100,
-                          width: 200,
-                          color: const Color.fromARGB(255, 229, 222, 219),
-                          child: Text(
-                            ' ${_formData[13]}',
-                            style: const TextStyle(fontSize: 14),
+                        if (_formData[13].isNotEmpty) ...[
+                          Container(
+                            height: 100,
+                            width: 200,
+                            color: const Color.fromARGB(255, 229, 222, 219),
+                            child: Text(
+                              ' ${_formData[13]}',
+                              style: const TextStyle(fontSize: 14),
+                            ),
                           ),
-                        ),
+                        ],
                       ],
                     ),
                   )
