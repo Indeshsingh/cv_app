@@ -1,4 +1,6 @@
+import 'package:cv_app/document_page.dart';
 import 'package:cv_app/home_page.dart';
+import 'package:cv_app/home_page1.dart';
 import 'package:flutter/material.dart';
 
 class BottomnavigationbarPage extends StatefulWidget {
@@ -13,7 +15,8 @@ class _BottomnavigationbarPageState extends State<BottomnavigationbarPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const HomePage(),
+    const HomePage1(),
+    const DocumentPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class _BottomnavigationbarPageState extends State<BottomnavigationbarPage> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         title: const Text(
-          'Resume Form',
+          'CV Creator',
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -43,7 +46,7 @@ class _BottomnavigationbarPageState extends State<BottomnavigationbarPage> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.contact_emergency), label: 'Contact')
+              icon: Icon(Icons.contact_emergency), label: 'Document')
         ],
         type: BottomNavigationBarType.fixed,
       ),

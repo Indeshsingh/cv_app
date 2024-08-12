@@ -125,9 +125,15 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        ' ${_formData[10]}',
-                        style: const TextStyle(fontSize: 14),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _formData[10]
+                            .split(' ')
+                            .map((item) => Text(
+                                  '- $item',
+                                  style: const TextStyle(fontSize: 14),
+                                ))
+                            .toList(),
                       ),
                       const Text(
                         'Education',
@@ -156,9 +162,15 @@ class _SharedpreferencesPageState extends State<SharedpreferencesPage> {
                           height: 100,
                           width: 200,
                           color: const Color.fromARGB(255, 229, 222, 219),
-                          child: Text(
-                            ' ${_formData[9]}',
-                            style: const TextStyle(fontSize: 14),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: _formData[9]
+                                .split(' ')
+                                .map((item) => Text(
+                                      '- $item',
+                                      style: const TextStyle(fontSize: 14),
+                                    ))
+                                .toList(),
                           ),
                         ),
                         const SizedBox(height: 20),
